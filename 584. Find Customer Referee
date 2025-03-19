@@ -50,3 +50,55 @@ ANSWER:
 select name
 from customer
 where referee_id != 2 or referee_id is NULL;
+
+Explanation:
+The given Customer table consists of three columns:
+•	id (Primary Key, unique for each customer),
+•	name (The name of the customer),
+•	referee_id (The ID of the customer who referred them; can be NULL if they were not referred by anyone).
+The task is to find all customers who were NOT referred by the customer with id = 2.
+________________________________________
+
+Query Breakdown:
+SELECT name
+FROM customer
+WHERE referee_id != 2 OR referee_id IS NULL;
+Step-by-Step Explanation:
+1.	SELECT name
+o	We only need the names of customers, so we select the name column.
+2.	FROM customer
+o	Specifies that we are querying from the Customer table.
+3.	WHERE referee_id != 2 OR referee_id IS NULL
+o	This condition ensures that we exclude customers referred by id = 2.
+o	referee_id != 2 → Includes customers who were referred by someone other than id = 2.
+o	referee_id IS NULL → Includes customers who were not referred by anyone.
+________________________________________
+
+Example Walkthrough:
+Input Table
+id	name	referee_id
+1	Will	NULL
+2	Jane	NULL
+3	Alex	2
+4	Bill	NULL
+5	Zack	1
+6	Mark	2
+•	Will (id = 1) → referee_id = NULL ✅ Include
+•	Jane (id = 2) → referee_id = NULL ✅ Include
+•	Alex (id = 3) → referee_id = 2 ❌ Exclude
+•	Bill (id = 4) → referee_id = NULL ✅ Include
+•	Zack (id = 5) → referee_id = 1 ✅ Include
+•	Mark (id = 6) → referee_id = 2 ❌ Exclude
+Output Table
+name
+Will
+Jane
+Bill
+Zack
+________________________________________
+Key Takeaways
+•	!= 2 filters out customers who were referred by id = 2.
+•	IS NULL ensures we include customers with no referee.
+•	The result is returned in any order as per the problem statement.
+This query efficiently extracts the required names while handling NULL values properly. 🚀
+
